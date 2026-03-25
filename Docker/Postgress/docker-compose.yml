@@ -22,8 +22,8 @@ services:
     depends_on:
       - postgres
     environment:
-      PGADMIN_DEFAULT_EMAIL: manish.mourya@infobeans.com
-      PGADMIN_DEFAULT_PASSWORD: manish123
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "5050:80"
 
