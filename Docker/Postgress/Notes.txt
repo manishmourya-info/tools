@@ -1,0 +1,33 @@
+Inside the UI:
+
+	Click Add New Server
+
+	In General
+
+	Name: Local Postgres
+
+	In Connection
+
+	Host: host.docker.internal
+	(or container name if same network)
+
+	Port: 5432
+
+	Database : mydb
+
+	Username: root
+
+	Password: root
+
+	Click Save.
+
+
+
+docker run --name postgres-db -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=mydb -p 5432:5432 -d postgres
+
+
+docker run -d --name pgadmin -e PGADMIN_DEFAULT_EMAIL=admin@example.com -e PGADMIN_DEFAULT_PASSWORD=admin123 -p 5050:80 dpage/pgadmin4
+
+
+
+docker exec -i postgres-db psql -U root -d mydb < sample_postgres_database.sql
