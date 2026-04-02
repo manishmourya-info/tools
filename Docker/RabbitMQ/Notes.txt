@@ -1,0 +1,16 @@
+Pull Docker Image
+Assuming the Docker Desktop has been installed, we use the below command to pull a RabbitMQ Docker image from DockerHub:
+##################################
+docker pull rabbitmq:4.2.5-management
+
+
+Run RabbitMQ Docker Image in Docker Container
+After the Docker image is downloaded and saved locally, we can start a RabbitMQ container using the following command:
+##################################
+docker run --rm -it -p 15672:15672 -p 5672:5672 rabbitmq:4.2.5-management
+
+
+
+http://localhost:15672/#/
+U:guest
+P:guest
