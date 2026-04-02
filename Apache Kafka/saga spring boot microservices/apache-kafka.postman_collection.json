@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "144e4635-1c36-45b5-b6d0-37fed1b75174",
+		"name": "apache-kafka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27980124"
+	},
+	"item": [
+		{
+			"name": "add-product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Wireless Mouse\",\r\n  \"price\": 599.99,\r\n  \"quantity\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerId\": \"c1a5f2d4-7b3e-4c9a-9f1d-2a8e6b7c1234\",\r\n  \"productId\": \"a2d45d6d-7522-41fd-ae91-b7863f0ceadb\",\r\n  \"productQuantity\": 212\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order-history",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerId\": \"c1a5f2d4-7b3e-4c9a-9f1d-2a8e6b7c1234\",\r\n  \"productId\": \"a2d45d6d-7522-41fd-ae91-b7863f0ceadb\",\r\n  \"productQuantity\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/orders/8bb4afe5-eaa5-444a-8075-b1b8583490be/history",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"orders",
+						"8bb4afe5-eaa5-444a-8075-b1b8583490be",
+						"history"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
