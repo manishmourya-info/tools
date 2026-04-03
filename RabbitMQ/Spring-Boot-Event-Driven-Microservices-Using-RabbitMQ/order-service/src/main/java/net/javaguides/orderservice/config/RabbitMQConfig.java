@@ -30,13 +30,19 @@ public class RabbitMQConfig {
     // spring bean for queue - order queue
     @Bean
     public Queue orderQueue(){
-        return new Queue(orderQueue);
+        return QueueBuilder
+                .durable(orderQueue)
+                .quorum()   // ✅ THIS enables quorum
+                .build();
     }
 
     // spring bean for queue - order queue
     @Bean
     public Queue emailQueue(){
-        return new Queue(emailQueue);
+        return QueueBuilder
+                .durable(emailQueue)
+                .quorum()   // ✅ THIS enables quorum
+                .build();
     }
 
     // spring bean for exchange

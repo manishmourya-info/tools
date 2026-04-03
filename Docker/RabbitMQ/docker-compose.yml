@@ -1,18 +1,70 @@
 version: "3.9"
 
 services:
-  rabbitmq:
+  rabbitmq1:
     image: rabbitmq:4.2.5-management
-    container_name: rabbitmq
-    restart: unless-stopped
-    ports:
-      - "5672:5672"     # AMQP port
-      - "15672:15672"   # Management UI
+    container_name: rabbitmq1
+    hostname: rabbitmq1
     environment:
+      RABBITMQ_ERLANG_COOKIE: "secretcookie"
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
+    ports:
+      - "5672:5672"
+      - "15672:15672"
     volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
+      - rabbitmq1_data:/var/lib/rabbitmq
+    networks:
+      - rabbitmq_net
+
+  rabbitmq2:
+    image: rabbitmq:4.2.5-management
+    container_name: rabbitmq2
+    hostname: rabbitmq2
+    depends_on:
+      - rabbitmq1
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "secretcookie"
+    volumes:
+      - rabbitmq2_data:/var/lib/rabbitmq
+    networks:
+      - rabbitmq_net
+    command: >
+      bash -c "
+      rabbitmq-server -detached &&
+      sleep 15 &&
+      rabbitmqctl stop_app &&
+      rabbitmqctl join_cluster rabbit@rabbitmq1 &&
+      rabbitmqctl start_app &&
+      tail -f /dev/null
+      "
+
+  rabbitmq3:
+    image: rabbitmq:4.2.5-management
+    container_name: rabbitmq3
+    hostname: rabbitmq3
+    depends_on:
+      - rabbitmq1
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "secretcookie"
+    volumes:
+      - rabbitmq3_data:/var/lib/rabbitmq
+    networks:
+      - rabbitmq_net
+    command: >
+      bash -c "
+      rabbitmq-server -detached &&
+      sleep 15 &&
+      rabbitmqctl stop_app &&
+      rabbitmqctl join_cluster rabbit@rabbitmq1 &&
+      rabbitmqctl start_app &&
+      tail -f /dev/null
+      "
+
+networks:
+  rabbitmq_net:
 
 volumes:
-  rabbitmq_data:
+  rabbitmq1_data:
+  rabbitmq2_data:
+  rabbitmq3_data:
